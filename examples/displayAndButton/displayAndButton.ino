@@ -84,7 +84,7 @@ void minus()
 void displayUpdate()
 {
   //lcd.displayText(((_x * 10) + _c) + 0x20, '-', 48 + _x, 48 + _c, _colon);
-  displayNumber(lastBtn0Pressed ? 1 : 0, lastBtn1Pressed ? 1 : 0, _x, _c, _colon);
+  lcd.displayNumber(lastBtn0Pressed ? 1 : 0, lastBtn1Pressed ? 1 : 0, _x, _c, _colon);
 }
 
 uint8_t button;
