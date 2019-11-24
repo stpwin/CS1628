@@ -7,6 +7,7 @@
 #include "CS1628.h"
 
 uint8_t digits[7]; //Contains data to be written to display memory
+uint8_t _intensity = 4;
 
 CS1628::CS1628(uint8_t _dio_pin, uint8_t _clk_pin, uint8_t _stb_pin)
 {
@@ -27,7 +28,7 @@ CS1628::CS1628(uint8_t _dio_pin, uint8_t _clk_pin, uint8_t _stb_pin)
   // setDisplayControl(true, 7);   //command 4 //display on
 }
 
-void CS1628::begin(boolean active = true, byte intensity = 1)
+void CS1628::begin(boolean active = true, byte intensity = 4)
 {
   sendCommand(0x80 | (active ? 8 : 0) | min(7, intensity)); //0x80
 }
@@ -54,8 +55,9 @@ void CS1628::setAddress(uint8_t address)
   sendCommand(0xC0 | min(13, address));
 }
 
-void CS1628::setDisplayControl(bool displayOn, uint8_t intensity = 1)
+void CS1628::setDisplayControl(bool displayOn, uint8_t intensity = 4)
 {
+  _intensity = intensity;
   sendCommand(0x80 | (displayOn ? 8 : 0) | min(7, intensity));
 }
 
@@ -74,8 +76,8 @@ void CS1628::displayNumber(uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, bool 
   }
   digitalWrite(_stb_pin, HIGH);
 
-  setDisplayMode(0x00);       //command 1
-  setDisplayControl(true, 7); //command 4
+  setDisplayMode(0x00);                //command 1
+  setDisplayControl(true, _intensity); //command 4
 }
 
 void CS1628::displayText(uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, bool colon = false)
@@ -93,8 +95,8 @@ void CS1628::displayText(uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, bool co
   }
   digitalWrite(_stb_pin, HIGH);
 
-  setDisplayMode(0x00);       //command 1
-  setDisplayControl(true, 7); //command 4
+  setDisplayMode(0x00);                //command 1
+  setDisplayControl(true, _intensity); //command 4
 }
 
 uint8_t CS1628::receive()

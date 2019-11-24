@@ -14,11 +14,11 @@ class CS1628
 public:
   CS1628(uint8_t _dio_pin, uint8_t _clk_pin, uint8_t _stb_pin);
 
-  void begin(boolean active, uint8_t intensity);
+  void begin(boolean active, uint8_t intensity = 4);
   void setDisplayMode(uint8_t mode);
   void setData(bool testMode, bool fixedAddress, bool readKey);
   void setAddress(uint8_t address);
-  void setDisplayControl(bool displayOn, uint8_t intensity = 1);
+  void setDisplayControl(bool displayOn, uint8_t intensity = 4);
   void displayText(uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, bool colon = false);
   void displayNumber(uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3, bool colon = false);
   uint8_t getButtons();
